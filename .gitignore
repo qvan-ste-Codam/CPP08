@@ -1,0 +1,8 @@
+#Block everything except .gitignore, Makefile, cpp files and header files
+*
+!*/
+!Makefile
+!*.cpp
+!*.hpp
+!*.tpp
+!.gitignore

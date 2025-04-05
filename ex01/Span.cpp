@@ -18,7 +18,7 @@ unsigned int Span::shortestSpan() const {
     std::vector<int> diff(sortedItems.size());
     std::adjacent_difference(sortedItems.begin(), sortedItems.end(),
                              diff.begin());
-    return *std::min_element(diff.begin(), diff.end());
+    return *std::min_element(diff.begin() + 1, diff.end());
 }
 
 unsigned int Span::longestSpan() const {
@@ -27,7 +27,8 @@ unsigned int Span::longestSpan() const {
     }
     int smallest = *std::min_element(items.begin(), items.end());
     int largest = *std::max_element(items.begin(), items.end());
-    return std::abs(largest - smallest);
+    return static_cast<unsigned int>(std::abs(
+        static_cast<long long>(largest) - static_cast<long long>(smallest)));
 }
 
 void Span::addNumber(const int num) {
@@ -37,12 +38,6 @@ void Span::addNumber(const int num) {
     items.push_back(num);
 };
 
-void Span::addRange(std::initializer_list<int> ilist) {
-    if (ilist.size() + items.size() > size) {
-        throw std::runtime_error("Can't fit range into vector");
-    }
-    items.insert(items.end(), ilist.begin(), ilist.end());
-}
 Span& ::Span::operator=(const Span & other) {
     if (this != &other) {
         items = other.items;
